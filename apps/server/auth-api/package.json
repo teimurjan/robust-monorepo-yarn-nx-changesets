@@ -1,6 +1,6 @@
 {
   "name": "@robust-monorepo-yarn-nx-changesets/auth-api",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "type": "module",
   "scripts": {
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@robust-monorepo-yarn-nx-changesets/sign-in-handler": "0.0.2",
+    "@robust-monorepo-yarn-nx-changesets/sign-in-handler": "0.0.3",
     "express": "^4.21.2"
   },
   "devDependencies": {

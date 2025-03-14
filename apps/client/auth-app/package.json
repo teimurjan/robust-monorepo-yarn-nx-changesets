@@ -1,6 +1,6 @@
 {
   "name": "@robust-monorepo-yarn-nx-changesets/auth-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,7 +10,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@robust-monorepo-yarn-nx-changesets/sign-in-form": "0.0.2",
+    "@robust-monorepo-yarn-nx-changesets/sign-in-form": "0.0.3",
     "next": "15.2.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
