@@ -1,5 +1,11 @@
 # @robust-monorepo-yarn-nx-changesets/auth-api
 
+## 0.0.4
+
+### Patch Changes
+
+- 0e3191e: Allowed apps to release without dependency changes
+
 ## 0.0.3
 
 ### Patch Changes
