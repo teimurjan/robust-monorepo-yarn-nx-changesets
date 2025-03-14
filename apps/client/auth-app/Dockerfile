@@ -3,7 +3,7 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-COPY --from=workspace package.json yarn.lock ./
+COPY --from=workspace package.json yarn.lock nx.json ./
 COPY --from=workspace .yarn ./yarn
 
 COPY --from=workspace apps/client/auth-app ./apps/client/auth-app

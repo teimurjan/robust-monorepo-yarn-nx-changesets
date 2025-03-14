@@ -2,6 +2,9 @@
   "name": "@robust-monorepo-yarn-nx-changesets/sign-in-handler",
   "version": "0.0.2",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/sign-in-handler.js",
   "module": "./dist/sign-in-handler.js",
   "types": "./dist/index.d.ts",
