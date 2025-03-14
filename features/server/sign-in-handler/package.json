@@ -5,6 +5,9 @@
   "main": "./dist/sign-in-handler.js",
   "module": "./dist/sign-in-handler.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

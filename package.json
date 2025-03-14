@@ -9,13 +9,15 @@
   "scripts": {
     "build:all": "yarn nx run-many -t build",
     "build:affected": "yarn nx affected -t build --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
+    "build:unpublished": "node ./scripts/print-unpublished-packages.mjs | xargs -I {} nx run-many -t=build -p {}",
     "typecheck:all": "yarn nx run-many -t typecheck",
     "typecheck:affected": "yarn nx affected -t typecheck --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
     "lint:all": "yarn nx run-many -t lint",
     "lint:affected": "yarn nx affected -t lint --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
     "quality:all": "yarn nx run-many --targets=typecheck,lint",
     "quality:affected": "yarn nx affected --targets=typecheck,lint --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
-    "check-circulardeps:all": "node ./scripts/check-circulardeps.mjs"
+    "check-circulardeps:all": "node ./scripts/check-circulardeps.mjs",
+    "release": "yarn build:unpublished && yarn changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.28.1",
@@ -27,6 +29,7 @@
     "compare-versions": "^6.1.1",
     "directed-graph-typed": "^2.0.3",
     "nx": "^20.5.0",
+    "package-json": "^10.0.1",
     "typescript": "^5"
   },
   "engines": {

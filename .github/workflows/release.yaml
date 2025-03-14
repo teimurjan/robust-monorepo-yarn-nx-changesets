@@ -34,35 +34,16 @@ jobs:
         name: Install dependencies
         run: yarn --immutable
 
-      - id: get-publishable-packages
-        name: Get publishable packages
-        run: |
-          # Use a temporary file in the current directory
-          TEMP_FILE="temp-changeset-status.json"
-          
-          # Generate the JSON output
-          yarn changeset status --output=${TEMP_FILE}
-          
-          # Extract package names from the JSON file and filter out private packages
-          PACKAGES=$(cat ${TEMP_FILE} | jq -r '.releases[].name' | while read pkg; do
-            # Check if package is private
-            is_private=$(cat $(find . -path "*/${pkg}/package.json" | head -n 1) | jq -r '.private // false')
-            if [ "$is_private" != "true" ]; then
-              echo "$pkg"
-            fi
-          done | tr '\n' ' ')
-          
-          # Clean up
-          rm ${TEMP_FILE}
-          
-          echo "packages=${PACKAGES}" >> $GITHUB_OUTPUT
-
+      - id: build-packages
+        name: Build packages
+        run: yarn --immutable
+        
       - id: create-release-pull-request-or-publish
         name: Create Release Pull Request or Publish to NPM
         uses: changesets/action@v1
         with:
           version: yarn changeset version
-          publish: yarn build:all -p ${{ steps.get-publishable-packages.outputs.packages }} && yarn changeset publish
+          publish: yarn release
           commit: "chore: publish new release"
           title: "chore: publish new release"
         env:

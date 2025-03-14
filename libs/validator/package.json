@@ -5,6 +5,9 @@
   "main": "./dist/validator.js",
   "module": "./dist/validator.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",

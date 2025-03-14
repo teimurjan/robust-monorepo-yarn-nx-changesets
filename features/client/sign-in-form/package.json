@@ -8,6 +8,9 @@
   "main": "./dist/sign-in-form.js",
   "module": "./dist/sign-in-form.js",
   "types": "./dist/index.d.ts",
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
