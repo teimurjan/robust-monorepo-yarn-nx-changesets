@@ -1,6 +1,6 @@
 {
   "name": "@robust-monorepo-yarn-nx-changesets/sign-in-form",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "files": [
     "dist"
@@ -16,7 +16,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@robust-monorepo-yarn-nx-changesets/validator": "0.0.1"
+    "@robust-monorepo-yarn-nx-changesets/validator": "0.0.2"
   },
   "peerDependencies": {
     "react": "^19.0.0",
