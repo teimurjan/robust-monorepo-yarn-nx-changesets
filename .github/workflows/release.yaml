@@ -37,7 +37,7 @@ jobs:
       - id: build-packages
         name: Build packages
         run: yarn --immutable
-        
+
       - id: create-release-pull-request-or-publish
         name: Create Release Pull Request or Publish to NPM
         uses: changesets/action@v1
@@ -87,12 +87,18 @@ jobs:
         run: |
           PUBLISHED_PACKAGES="${{ needs.release-libs-features.outputs.publishedPackages }}"
           PACKAGE_NAME="${{ matrix.package }}"
-      
-          if echo "$PUBLISHED_PACKAGES" | grep -w "$PACKAGE_NAME"; then
-            echo "published=true" >> $GITHUB_OUTPUT
-          else
-            echo "published=false" >> $GITHUB_OUTPUT
-          fi
+          APP="${{ matrix.package }}"
+
+          DEPENDENCIES=$(jq -r '.dependencies // {} | keys[]' "apps/$APP/package.json")
+
+          for DEP in $DEPENDENCIES; do
+            if echo "$PUBLISHED_PACKAGES" | grep -w "$DEP"; then
+              echo "published=true" >> $GITHUB_OUTPUT
+              exit 0
+            fi
+          done
+
+          echo "published=false" >> $GITHUB_OUTPUT
 
       - id: set-up-docker
         name: Set up Docker Buildx
