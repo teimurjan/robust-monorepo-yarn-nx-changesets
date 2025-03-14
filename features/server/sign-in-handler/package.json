@@ -1,6 +1,6 @@
 {
   "name": "@robust-monorepo-yarn-nx-changesets/sign-in-handler",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "./dist/sign-in-handler.js",
   "module": "./dist/sign-in-handler.js",
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@robust-monorepo-yarn-nx-changesets/validator": "0.0.1"
+    "@robust-monorepo-yarn-nx-changesets/validator": "0.0.2"
   },
   "devDependencies": {
     "@types/express": "^4",
