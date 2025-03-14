@@ -32,3 +32,5 @@ node_modules
 # Optionally, exclude Dockerfiles and docker-compose files from the context if not needed
 Dockerfile*
 docker-compose*
+
+.nx

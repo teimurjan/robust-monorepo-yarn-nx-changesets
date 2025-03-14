@@ -2,6 +2,9 @@
   "name": "@robust-monorepo-yarn-nx-changesets/validator",
   "version": "0.0.2",
   "type": "module",
+  "files": [
+    "dist"
+  ],
   "main": "./dist/validator.js",
   "module": "./dist/validator.js",
   "types": "./dist/index.d.ts",
