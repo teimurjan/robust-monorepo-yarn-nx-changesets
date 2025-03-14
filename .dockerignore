@@ -1,0 +1,34 @@
+# Exclude Git files
+.git
+.gitignore
+
+# Exclude local development files and editor configs
+.vscode
+.idea
+.DS_Store
+
+# Exclude log files
+*.log
+
+# Exclude environment variable files (if not needed in the image)
+.env
+.env.local
+
+# Exclude node_modules folders (if they exist anywhere in the monorepo)
+node_modules
+**/node_modules
+
+# Exclude Yarn caches and Plug’n’Play generated files that are recreated at build time
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# Exclude build output directories (adjust these if your build output is elsewhere)
+**/dist
+**/build
+**/coverage
+
+# Optionally, exclude Dockerfiles and docker-compose files from the context if not needed
+Dockerfile*
+docker-compose*

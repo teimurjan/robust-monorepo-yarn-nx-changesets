@@ -1,0 +1,96 @@
+name: Quality
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  disable-manual-version-changes:
+    name: Disable manual version changes
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.pull_request.head.ref != 'changeset-release/main' }}
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: check_version
+        name: Check version changes
+        run: |
+          BASE_BRANCH=${{ github.event.pull_request.base.ref }}
+          git fetch origin $BASE_BRANCH
+
+          CHANGED_FILES=$(git diff --name-only origin/$BASE_BRANCH HEAD)
+          VERSION_CHANGED=false
+          for FILE in $CHANGED_FILES; do
+            if [[ $FILE == */package.json ]]; then
+              if [ -f "$FILE" ]; then
+                HEAD_VERSION=$(grep '"version":' "$FILE" | awk -F '"' '{print $4}')
+              else
+                continue
+              fi
+
+              HEAD_VERSION=$(cat $FILE | grep '"version":' | awk -F '"' '{print $4}')
+
+              if git cat-file -e origin/$BASE_BRANCH:$FILE 2>/dev/null; then
+                BASE_VERSION=$(git show origin/$BASE_BRANCH:$FILE | grep '"version":' | awk -F '"' '{print $4}')
+              else
+                BASE_VERSION=$HEAD_VERSION
+              fi
+
+              if [ "$BASE_VERSION" != "$HEAD_VERSION" ]; then
+                VERSION_CHANGED=true
+                echo "Version change detected in $FILE"
+              fi
+            fi
+          done
+
+          if [ "$VERSION_CHANGED" = true ]; then
+            echo "Manual version changes are prohibited. Use changesets instead."
+            exit 1
+          fi
+        env:
+          GITHUB_REF: ${{ github.ref }}
+
+  check-quality:
+    name: Check quality
+    runs-on: ubuntu-22.04
+    if: ${{ github.event.pull_request.head.ref != 'changeset-release/main' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - id: enable-corepack
+        name: Enable Corepack
+        run: corepack enable
+
+      - id: use-node-js
+        name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+          cache: "yarn"
+          cache-dependency-path: "./yarn.lock"
+
+      - id: install-dependencies
+        name: Install dependencies
+        run: yarn --immutable
+
+      - id: check-constraints
+        name: Check constraints
+        run: yarn constraints
+
+      - id: check-circulardeps
+        name: Check circular dependencies
+        run: yarn check-circulardeps:all
+
+      - id: check-quality
+        name: Check quality
+        run: BASE=origin/${{ github.event.pull_request.base.ref }} yarn quality:affected

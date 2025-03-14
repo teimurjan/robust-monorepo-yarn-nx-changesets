@@ -1,0 +1,35 @@
+{
+  "name": "@robust-monorepo-yarn-nx-changesets/root",
+  "packageManager": "yarn@4.7.0",
+  "workspaces": [
+    "apps/**",
+    "features/**",
+    "libs/**"
+  ],
+  "scripts": {
+    "build:all": "yarn nx run-many -t build",
+    "build:affected": "yarn nx affected -t build --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
+    "typecheck:all": "yarn nx run-many -t typecheck",
+    "typecheck:affected": "yarn nx affected -t typecheck --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
+    "lint:all": "yarn nx run-many -t lint",
+    "lint:affected": "yarn nx affected -t lint --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
+    "quality:all": "yarn nx run-many --targets=typecheck,lint",
+    "quality:affected": "yarn nx affected --targets=typecheck,lint --base=${BASE:-origin/main} --head=${HEAD:-HEAD}",
+    "check-circulardeps:all": "node ./scripts/check-circulardeps.mjs"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.28.1",
+    "@changesets/get-dependents-graph": "^2.1.3",
+    "@changesets/git": "^3.0.2",
+    "@manypkg/get-packages": "^2.2.2",
+    "@types/node": "^22.13.10",
+    "@yarnpkg/types": "^4.0.1",
+    "compare-versions": "^6.1.1",
+    "directed-graph-typed": "^2.0.3",
+    "nx": "^20.5.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": "20.18.1"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "name": "@robust-monorepo-yarn-nx-changesets/validator",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./dist/validator.js",
+  "module": "./dist/validator.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^4.5.3"
+  },
+  "engines": {
+    "node": "20.18.1"
+  },
+  "packageManager": "yarn@4.7.0"
+}
