@@ -30,6 +30,8 @@ jobs:
             package: "@robust-monorepo-yarn-nx-changesets/auth-app"
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - id: check-dependency-published
         name: Check if any app dependency is published
