@@ -35,7 +35,7 @@ jobs:
 
       - id: build-packages
         name: Build packages
-        run: yarn --immutable
+        run: yarn build:affected
 
       - id: create-release-pull-request-or-publish
         name: Create Release Pull Request or Publish to NPM
