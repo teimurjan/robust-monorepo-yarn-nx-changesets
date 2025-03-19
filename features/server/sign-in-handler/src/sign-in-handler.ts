@@ -28,7 +28,7 @@ const signInHandler: RequestHandler = (req, res) => {
   if (typeof passwordValidationResult === "string") {
     res
       .status(422)
-      .send("Invalid password format: " + usernameValidationResult);
+      .send("Invalid password format: " + passwordValidationResult);
     return;
   }
 
